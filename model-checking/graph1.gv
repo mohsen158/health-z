@@ -1,0 +1,50 @@
+
+        
+    digraph G {
+
+        subgraph cluster_0 {
+            style=filled;
+            color=lightgrey;
+            node [style=filled,color=white];
+
+            // b1 -> b1  [ label = "[ship]" ];
+            b1 -> b2 [label = "pay/okp_b" ];
+            b2 -> b2 [label = "[ship]" ];
+            b1-> b1 [label = "[ship]" ];
+            b1 -> b4 [label="deny/kop_b"];
+            b2->b4[label="deny"];
+            b2->b5 [label="confirm"];
+             
+         
+
+            label = "Buyer";
+        }
+
+        subgraph cluster_1 {
+            node [style=filled];
+
+            // s1 -> s1  [ label = "[pay]" ];
+            s1 -> s2 [label = "sent/okp_s" ];
+            s2 -> s2 [label = "[pay]" ];
+            s1 -> s1 [label = "[pay]" ];
+             s1 -> s4 [label="deny/kop_s"];
+            s2->s4[label="deny"];
+            s2->s5 [label="confirm"];
+            
+            
+
+            label = "Seller";
+            color=blue
+        }
+
+        Start -> s1 [ label = "[deposit]" ];
+        Start -> b1 [ label = "[deposit]" ];
+        
+        b5 -> Reset [label = "[clearing]  " ];
+        b4 -> Reset [label = "[clearing]  " ];
+        s4 -> Reset [label = "[clearing] " ];
+        s5 -> Reset [label = "[clearing] " ];
+        
+        Start [shape=Mdiamond];
+        Reset [shape=Msquare];
+        }
