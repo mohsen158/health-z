@@ -7,9 +7,9 @@ use(solidity);
 describe("My Dapp", function () {
   let myContract;
 
-  describe("YourContract", function () {
+  describe("HealthZ", function () {
     it("Should deploy YourContract", async function () {
-      const YourContract = await ethers.getContractFactory("YourContract");
+      const YourContract = await ethers.getContractFactory("HealthZ");
 
       myContract = await YourContract.deploy();
     });

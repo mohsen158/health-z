@@ -3,11 +3,13 @@ const { exec } = require("child_process");
 
 const run = () => {
   console.log("🛠  Compiling & Deploying...");
-  exec("yarn deploy", function (error, stdout, stderr) {
+  exec("yarn deploy && yarn test ", function (error, stdout, stderr) {
     console.log(stdout);
     if (error) console.log(error);
     if (stderr) console.log(stderr);
+    
   });
+  
 };
 
 console.log("🔬 Watching Contracts...");
