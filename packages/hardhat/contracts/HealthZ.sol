@@ -16,7 +16,7 @@ contract HealthZ {
         uint256 deposit;
         uint256 sellerDeposit;
         uint256 buyerDeposit;
-        bool sellerConfirm;
+        bool sellerConfirmation;
         bool buyerConfirmation;
         uint256 endTime;
     }
@@ -49,6 +49,16 @@ contract HealthZ {
     // Events
 
     event SetPurpose(address sender, string purpose);
+    event newInfoEvent(
+        address creator,
+        bytes16 id,
+        // address owner;
+        // address contractAddress;
+        string detail,
+        bytes32 hash
+    );
+
+    event newItemEvent();
 
     constructor() public {
         // uint id = getRandom();
@@ -69,19 +79,52 @@ contract HealthZ {
         view
         returns (
             address creator,
-            bytes16,
+            bytes16 id,
             // address owner;
             // address contractAddress;
-            string memory,
-            bytes32
+            string memory detail,
+            bytes32 hash
         )
     {
-        bytes16 id = infosId[i];
+        bytes16 infoId = infosId[i];
         return (
-            infos[id].creator,
-            infos[id].id,
-            infos[id].detail,
-            infos[id].hash
+            infos[infoId].creator,
+            infos[infoId].id,
+            infos[infoId].detail,
+            infos[infoId].hash
+        );
+    }
+
+    function getItemByIndex(uint256 i)
+        public
+        view
+        returns (
+            address buyer,
+            address seller,
+            uint256 price,
+            bytes16 infoId,
+            bytes16 id,
+            uint256 deposit,
+            uint256 sellerDeposit,
+            uint256 buyerDeposit,
+            bool sellerConfirmation,
+            bool buyerConfirmation,
+            uint256 endTime )
+    {
+        bytes16 itemId = itemsId[i];
+        return (
+            items[itemId].buyer,
+            items[itemId].seller,
+            items[itemId].price,
+            items[itemId].infoId,
+            items[itemId].id,
+            items[itemId].deposit,
+            items[itemId].sellerDeposit,
+            items[itemId].buyerDeposit,
+            items[itemId].sellerConfirmation,
+            items[itemId].buyerConfirmation,
+            items[itemId].endTime
+
         );
     }
 
@@ -108,7 +151,7 @@ contract HealthZ {
         uint256 price,
         bytes16 infoId,
         uint256 deposit,
-        uint256 endTime // Buyer must call this function
+        uint256 endTime // Seller must call this function
     )
         public
         returns (
@@ -121,7 +164,7 @@ contract HealthZ {
         Item storage i = items[itemId];
         //i.detail=detail;
         i.id = itemId;
-        i.buyer = msg.sender;
+        i.seller = msg.sender;
         i.price = price;
         i.infoId = infoId;
         i.deposit = deposit;
@@ -130,6 +173,10 @@ contract HealthZ {
         itemsId.push(itemId);
         return itemId;
     }
+
+    // function buyerDeposit(bytes16 itemId) public payable (){
+
+    // }
 
     // *** Utility Functions ***
     function randomId() public returns (bytes16) {

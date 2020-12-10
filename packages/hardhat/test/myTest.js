@@ -44,10 +44,24 @@ describe("My Dapp", function () {
           await myContract.getInfoByIndex(0).then(async (res) => {
             const detail = "Test detail";
             const price = 100;
-            const infoId = res[1];
+            const infoId = res.id;
             const deposit = 10;
             const endTime = 5; //is day
+            //console.log(res);
             await myContract.newItem(price, infoId, deposit, endTime);
+          });
+          //  expect().to.equal("newPurpose");
+          //  console.log(a.data);
+
+          //await myContract.infos().with
+        });
+      });
+      describe("getItemByIndex()", function () {
+        it("Should be able to get an  Item from last recently added item", async function () {
+          await myContract.getItemByIndex(0).then(async (res) => {
+           //is day
+            console.log(res.buyer );
+            
           });
           //  expect().to.equal("newPurpose");
           //  console.log(a.data);

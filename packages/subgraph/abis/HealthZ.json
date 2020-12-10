@@ -24,6 +24,43 @@
     "type": "event"
   },
   {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "creator",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes16",
+        "name": "id",
+        "type": "bytes16"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "detail",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "hash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "newInfoEvent",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [],
+    "name": "newItemEvent",
+    "type": "event"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -40,18 +77,87 @@
       },
       {
         "internalType": "bytes16",
-        "name": "",
+        "name": "id",
         "type": "bytes16"
       },
       {
         "internalType": "string",
-        "name": "",
+        "name": "detail",
         "type": "string"
       },
       {
         "internalType": "bytes32",
-        "name": "",
+        "name": "hash",
         "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "i",
+        "type": "uint256"
+      }
+    ],
+    "name": "getItemByIndex",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "buyer",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "seller",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "price",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes16",
+        "name": "infoId",
+        "type": "bytes16"
+      },
+      {
+        "internalType": "bytes16",
+        "name": "id",
+        "type": "bytes16"
+      },
+      {
+        "internalType": "uint256",
+        "name": "deposit",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "sellerDeposit",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "buyerDeposit",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "sellerConfirmation",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "buyerConfirmation",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endTime",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -162,7 +268,7 @@
       },
       {
         "internalType": "bool",
-        "name": "sellerConfirm",
+        "name": "sellerConfirmation",
         "type": "bool"
       },
       {
