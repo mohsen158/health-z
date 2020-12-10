@@ -174,9 +174,15 @@ contract HealthZ {
         return itemId;
     }
 
-    // function buyerDeposit(bytes16 itemId) public payable (){
+    function buyerDeposit(bytes16 itemId) public payable    {
 
-    // }
+         require (items[itemId].buyer== address(0x0) ,"Another buyer accepted");
+        items[itemId].buyer= msg.sender;
+        require(items[itemId].deposit==msg.value," Value is not equal with deposit");
+         items[itemId].buyerDeposit= msg.value;
+        
+
+    }
 
     // *** Utility Functions ***
     function randomId() public returns (bytes16) {

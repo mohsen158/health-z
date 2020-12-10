@@ -9,9 +9,16 @@ describe("My Dapp", function () {
 
   describe("HealthZ", function () {
     it("Should deploy YourContract", async function () {
-      const YourContract = await ethers.getContractFactory("HealthZ");
+      // const [owner, addr1, addr2] = await ethers.getSigners();
 
+      const YourContract = await ethers.getContractFactory("HealthZ");
       myContract = await YourContract.deploy();
+      // await YourContract.transfer(addr1.address, 50);
+
+      // console.log(owner)
+      //   const ownerBalance = await myContract.balanceOf(owner.address);
+    //   expect(await hardhatToken.totalSupply()).to.equal(ownerBalance);
+    // console.log(ownerBalance)
     });
 
     describe("setPurpose()", function () {
@@ -63,6 +70,23 @@ describe("My Dapp", function () {
             console.log(res.buyer );
             
           });
+          //  expect().to.equal("newPurpose");
+          //  console.log(a.data);
+
+          //await myContract.infos().with
+        });
+      });
+      describe("buyerDeposit()", function () {
+        it("Should be able  deposit in one item which has not before ", async function () {
+          await myContract.getItemByIndex(0).then(async (res) => {
+           //is day
+            await myContract.buyerDeposit(res.id,{value:10}).then(async (res) => {            console.log(res );
+            })
+
+          });
+
+
+          
           //  expect().to.equal("newPurpose");
           //  console.log(a.data);
 

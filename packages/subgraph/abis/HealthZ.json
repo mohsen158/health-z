@@ -63,6 +63,19 @@
   {
     "inputs": [
       {
+        "internalType": "bytes16",
+        "name": "itemId",
+        "type": "bytes16"
+      }
+    ],
+    "name": "buyerDeposit",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "i",
         "type": "uint256"
