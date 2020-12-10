@@ -26,40 +26,226 @@
   {
     "inputs": [
       {
-        "internalType": "bytes32",
-        "name": "",
-        "type": "bytes32"
+        "internalType": "uint256",
+        "name": "i",
+        "type": "uint256"
       }
     ],
-    "name": "Items",
+    "name": "getInfoByIndex",
     "outputs": [
       {
         "internalType": "address",
-        "name": "owner",
+        "name": "creator",
         "type": "address"
       },
       {
-        "internalType": "address",
-        "name": "contractAddress",
-        "type": "address"
+        "internalType": "bytes16",
+        "name": "",
+        "type": "bytes16"
       },
       {
-        "internalType": "uint16",
-        "name": "version",
-        "type": "uint16"
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
       }
     ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "incrementIdMaterial",
+    "inputs": [
+      {
+        "internalType": "bytes16",
+        "name": "",
+        "type": "bytes16"
+      }
+    ],
+    "name": "infos",
     "outputs": [
       {
-        "internalType": "uint16",
+        "internalType": "address",
+        "name": "creator",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes16",
+        "name": "id",
+        "type": "bytes16"
+      },
+      {
+        "internalType": "string",
+        "name": "detail",
+        "type": "string"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "hash",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
         "name": "",
-        "type": "uint16"
+        "type": "uint256"
+      }
+    ],
+    "name": "infosId",
+    "outputs": [
+      {
+        "internalType": "bytes16",
+        "name": "",
+        "type": "bytes16"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes16",
+        "name": "",
+        "type": "bytes16"
+      }
+    ],
+    "name": "items",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "buyer",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "seller",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "price",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes16",
+        "name": "infoId",
+        "type": "bytes16"
+      },
+      {
+        "internalType": "bytes16",
+        "name": "id",
+        "type": "bytes16"
+      },
+      {
+        "internalType": "uint256",
+        "name": "deposit",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "sellerDeposit",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "buyerDeposit",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "sellerConfirm",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "buyerConfirmation",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endTime",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "itemsId",
+    "outputs": [
+      {
+        "internalType": "bytes16",
+        "name": "",
+        "type": "bytes16"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "detail",
+        "type": "string"
+      }
+    ],
+    "name": "newInfo",
+    "outputs": [
+      {
+        "internalType": "bytes16",
+        "name": "",
+        "type": "bytes16"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "price",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes16",
+        "name": "infoId",
+        "type": "bytes16"
+      },
+      {
+        "internalType": "uint256",
+        "name": "deposit",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endTime",
+        "type": "uint256"
+      }
+    ],
+    "name": "newItem",
+    "outputs": [
+      {
+        "internalType": "bytes16",
+        "name": "",
+        "type": "bytes16"
       }
     ],
     "stateMutability": "nonpayable",
@@ -83,9 +269,9 @@
     "name": "randomId",
     "outputs": [
       {
-        "internalType": "bytes32",
+        "internalType": "bytes16",
         "name": "",
-        "type": "bytes32"
+        "type": "bytes16"
       }
     ],
     "stateMutability": "nonpayable",
