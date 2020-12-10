@@ -8,8 +8,8 @@ contract HealthZ {
     // *** Structs ***
 
     struct Item {
-        address buyer;
-        address seller;
+        address payable buyer;
+        address payable seller;
         uint256 price;
         bytes16 infoId;
         bytes16 id;
@@ -109,7 +109,8 @@ contract HealthZ {
             uint256 buyerDeposit,
             bool sellerConfirmation,
             bool buyerConfirmation,
-            uint256 endTime )
+            uint256 endTime
+        )
     {
         bytes16 itemId = itemsId[i];
         return (
@@ -124,7 +125,6 @@ contract HealthZ {
             items[itemId].sellerConfirmation,
             items[itemId].buyerConfirmation,
             items[itemId].endTime
-
         );
     }
 
@@ -174,14 +174,62 @@ contract HealthZ {
         return itemId;
     }
 
-    function buyerDeposit(bytes16 itemId) public payable    {
+    function buyerDeposit(bytes16 itemId) public payable {
+        require(items[itemId].buyer == address(0x0), "Another buyer accepted");
+        items[itemId].buyer = msg.sender;
+        require(
+            items[itemId].deposit == msg.value,
+            " Value is not equal with deposit"
+        );
+        items[itemId].buyerDeposit = msg.value;
+    }
 
-         require (items[itemId].buyer== address(0x0) ,"Another buyer accepted");
-        items[itemId].buyer= msg.sender;
-        require(items[itemId].deposit==msg.value," Value is not equal with deposit");
-         items[itemId].buyerDeposit= msg.value;
-        
+    function sellerDeposit(bytes16 itemId) public payable {
+        require(items[itemId].seller == msg.sender, "Another seller accepted");
 
+        require(
+            items[itemId].deposit == msg.value,
+            " Value is not equal with deposit"
+        );
+        items[itemId].sellerDeposit = msg.value;
+    }
+
+    function sellerConfirmation(bytes16 itemId) public {
+        require(items[itemId].seller == msg.sender, "Another seller accepted");
+
+        require(
+            items[itemId].deposit == items[itemId].sellerDeposit,
+            " Value is not equal with deposit"
+        );
+        require(
+            items[itemId].deposit == items[itemId].buyerDeposit,
+            " Value is not equal with deposit"
+        );
+        items[itemId].sellerConfirmation = true;
+    }
+
+    function buyerConfirmation(bytes16 itemId) public {
+        require(items[itemId].buyer == msg.sender, "Another buyer accepted");
+
+        require(
+            items[itemId].deposit == items[itemId].sellerDeposit,
+            " Value is not equal with deposit"
+        );
+        require(
+            items[itemId].deposit == items[itemId].buyerDeposit,
+            " Value is not equal with deposit"
+        );
+        items[itemId].sellerConfirmation = true;
+    }
+
+    function donePhase(bytes16 itemId) public {
+        require(items[itemId].endTime < now);
+        if (
+            items[itemId].sellerConfirmation && items[itemId].buyerConfirmation
+        ) {
+             items[itemId].buyer.transfer( items[itemId].deposit);
+             items[itemId].seller.transfer( items[itemId].deposit);
+        }
     }
 
     // *** Utility Functions ***

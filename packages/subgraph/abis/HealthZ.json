@@ -68,9 +68,35 @@
         "type": "bytes16"
       }
     ],
+    "name": "buyerConfirmation",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes16",
+        "name": "itemId",
+        "type": "bytes16"
+      }
+    ],
     "name": "buyerDeposit",
     "outputs": [],
     "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes16",
+        "name": "itemId",
+        "type": "bytes16"
+      }
+    ],
+    "name": "donePhase",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -240,12 +266,12 @@
     "name": "items",
     "outputs": [
       {
-        "internalType": "address",
+        "internalType": "address payable",
         "name": "buyer",
         "type": "address"
       },
       {
-        "internalType": "address",
+        "internalType": "address payable",
         "name": "seller",
         "type": "address"
       },
@@ -394,6 +420,32 @@
       }
     ],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes16",
+        "name": "itemId",
+        "type": "bytes16"
+      }
+    ],
+    "name": "sellerConfirmation",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes16",
+        "name": "itemId",
+        "type": "bytes16"
+      }
+    ],
+    "name": "sellerDeposit",
+    "outputs": [],
+    "stateMutability": "payable",
     "type": "function"
   },
   {
