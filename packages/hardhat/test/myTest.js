@@ -1,11 +1,14 @@
 const { ethers } = require("hardhat");
 const { use, expect } = require("chai");
 const { solidity } = require("ethereum-waffle");
-
+const { initialize } = require('zokrates-js/node');
 use(solidity);
 
 describe("My Dapp", function () {
   let myContract;
+  initialize().then((zokratesProvider) => {
+    const source = "def main(private field a) -> field: return a * a";
+  });
 
   describe("HealthZ", function () {
     it("Should deploy YourContract", async function () {
