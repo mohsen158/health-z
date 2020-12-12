@@ -3,8 +3,7 @@ pragma solidity >=0.6.0 <0.7.0;
 import "hardhat/console.sol";
 
 //import "@openzeppelin/contracts/access/Ownable.sol"; //https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/Ownable.sol
-
-contract HealthZ {
+ contract HealthZ {
     // *** Structs ***
 
     struct Item {

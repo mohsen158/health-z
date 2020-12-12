@@ -1,0 +1,16 @@
+import "hashes/sha256/512bit" as sha256
+import "utils/casts/u32_to_bits" as u32_to_bits
+
+// Reveal a bit from a 512 bit value, and return it with the corresponding hash
+// for that value.
+//
+// WARNING, once enough bits have been revealed it is possible to brute force
+// the remaining preimage bits.
+
+def main(private u32[16] preimage, u32[8] hash) ->bool:
+                                                                                                                       
+  // Convert the preimage to bits
+    u32[8] h = sha256(preimage[0..8], preimage[8..16])
+    // ** can add another public value inorder to create hash exactly unique 
+    assert(h==hash)
+  return true

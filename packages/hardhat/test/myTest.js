@@ -1,14 +1,13 @@
 const { ethers } = require("hardhat");
 const { use, expect } = require("chai");
 const { solidity } = require("ethereum-waffle");
-const { initialize } = require('zokrates-js/node');
+// const {getHashValue} = require('../zkStuff/hash')
+const hashZk = require("../zkStuff/hash");
 use(solidity);
+const { initialize } = require("zokrates-js/node");
 
 describe("My Dapp", function () {
   let myContract;
-  initialize().then((zokratesProvider) => {
-    const source = "def main(private field a) -> field: return a * a";
-  });
 
   describe("HealthZ", function () {
     it("Should deploy YourContract", async function () {
@@ -20,8 +19,8 @@ describe("My Dapp", function () {
 
       // console.log(owner)
       //   const ownerBalance = await myContract.balanceOf(owner.address);
-    //   expect(await hardhatToken.totalSupply()).to.equal(ownerBalance);
-    // console.log(ownerBalance)
+      //   expect(await hardhatToken.totalSupply()).to.equal(ownerBalance);
+      // console.log(ownerBalance)
     });
 
     describe("setPurpose()", function () {
@@ -69,9 +68,8 @@ describe("My Dapp", function () {
       describe("getItemByIndex()", function () {
         it("Should be able to get an  Item from last recently added item", async function () {
           await myContract.getItemByIndex(0).then(async (res) => {
-           //is day
-            console.log(res.buyer );
-            
+            //is day
+            console.log(res.buyer);
           });
           //  expect().to.equal("newPurpose");
           //  console.log(a.data);
@@ -82,14 +80,84 @@ describe("My Dapp", function () {
       describe("buyerDeposit()", function () {
         it("Should be able  deposit in one item which has not before ", async function () {
           await myContract.getItemByIndex(0).then(async (res) => {
-           //is day
-            await myContract.buyerDeposit(res.id,{value:10}).then(async (res) => {            console.log(res );
-            })
-
+            //is day
+            await myContract
+              .buyerDeposit(res.id, { value: 10 })
+              .then(async (res) => {
+                console.log(res);
+              });
           });
 
+          //  expect().to.equal("newPurpose");
+          //  console.log(a.data);
 
-          
+          //await myContract.infos().with
+        });
+      });
+      describe("buyerConfirmation()", function () {
+        it("Should be able  confirm the hash ", async function () {
+          // await myContract.getItemByIndex(0).then(async (res) => {
+          //  //is day
+          //   await myContract.buyerDeposit(res.id,{value:10}).then(async (res) => {            console.log(res );
+          //   })
+
+          // });
+
+          hashZk.getHashValue("sdfsdf", (hash) => {
+
+            
+            hashZk.verifycation(
+              [
+                "0x00000000",
+                "0x00000001",
+                "0x00000002",
+                "0x00000003",
+                "0x00000004",
+                "0x00000005",
+                "0x00000006",
+                "0x00000007",
+                "0x00000008",
+                "0x00000009",
+                "0x00000010",
+                "0x00000011",
+                "0x00000012",
+                "0x00000013",
+                "0x00000014",
+                "0x00000015",
+              ],
+              JSON.parse(hash)[0],
+              (res) => {
+                console.log("proof:", res);
+              }
+            );
+          });
+          // const source = "def main(private field a) -> field: return a * a";
+
+          // // compilation
+          // const artifacts = zokratesProvider.compile(source);
+
+          // // computation
+          // const {
+          //   witness,
+          //   output,
+          // } = zokratesProvider.computeWitness(artifacts, ["2"]);
+
+          // // run setup
+          // const keypair = zokratesProvider.setup(artifacts.program);
+
+          // // generate proof
+          // const proof = zokratesProvider.generateProof(
+          //   artifacts.program,
+          //   witness,
+          //   keypair.pk
+          // );
+
+          // // export solidity verifier
+          // const verifier = zokratesProvider.exportSolidityVerifier(
+          //   keypair.vk,
+          //   "v1"
+          // );
+
           //  expect().to.equal("newPurpose");
           //  console.log(a.data);
 

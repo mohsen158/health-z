@@ -54,6 +54,7 @@ const deploy = async (contractName, _args) => {
 
   const contractArgs = _args || [];
   const contractArtifacts = await ethers.getContractFactory(contractName);
+  // console.log('artifact for :',contractName ,contractArtifacts)
   const deployed = await contractArtifacts.deploy(...contractArgs);
   const encoded = abiEncodeArgs(deployed, contractArgs);
   fs.writeFileSync(`artifacts/${contractName}.address`, deployed.address);

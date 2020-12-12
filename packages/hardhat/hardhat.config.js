@@ -98,7 +98,7 @@ module.exports = {
   },
 };
 
-const DEBUG = false;
+const DEBUG = true;
 
 function debug(text) {
   if (DEBUG) {
