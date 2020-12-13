@@ -104,8 +104,6 @@ describe("My Dapp", function () {
           // });
 
           hashZk.getHashValue("sdfsdf", (hash) => {
-
-            
             hashZk.verifycation(
               [
                 "0x00000000",
@@ -126,8 +124,22 @@ describe("My Dapp", function () {
                 "0x00000015",
               ],
               JSON.parse(hash)[0],
-              (res) => {
-                console.log("proof:", res);
+              async (proof) => {
+                await myContract.getItemByIndex(0).then(async (res) => {
+                  //is day
+
+                  await myContract
+                    .buyerConfirmation(
+                      res.id,
+                      proof.proof.a,
+                      proof.proof.b,
+                      proof.proof.c,
+                      proof.inputs
+                    )
+                    .then(async (res) => {
+                      console.log("proof res:", res);
+                    });
+                });
               }
             );
           });

@@ -130,7 +130,7 @@ function App(props) {
                 and give you a form to interact with it locally
             */}
             <Contract
-              name="YourContract"
+              name="HealthZ"
               signer={userProvider.getSigner()}
               provider={localProvider}
               address={address}

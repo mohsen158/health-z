@@ -10,7 +10,7 @@
 pragma solidity ^0.6.1;
 
 import  "./Pairing.sol";
-contract Verifier2 {
+contract zkVerifier {
     using Pairing for *;
     struct VerifyingKey {
         Pairing.G1Point alpha;

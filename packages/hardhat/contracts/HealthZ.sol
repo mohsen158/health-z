@@ -1,9 +1,10 @@
 pragma solidity >=0.6.0 <0.7.0;
 
 import "hardhat/console.sol";
+import "./zkVerifier.sol";
 
 //import "@openzeppelin/contracts/access/Ownable.sol"; //https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/Ownable.sol
- contract HealthZ {
+contract HealthZ is zkVerifier {
     // *** Structs ***
 
     struct Item {
@@ -207,7 +208,13 @@ import "hardhat/console.sol";
         items[itemId].sellerConfirmation = true;
     }
 
-    function buyerConfirmation(bytes16 itemId) public {
+    function buyerConfirmation(
+        bytes16 itemId,
+        uint256[2] memory a,
+        uint256[2][2] memory b,
+        uint256[2] memory c,
+        uint256[9] memory input // ,
+    ) public returns (bool) {
         require(items[itemId].buyer == msg.sender, "Another buyer accepted");
 
         require(
@@ -218,7 +225,12 @@ import "hardhat/console.sol";
             items[itemId].deposit == items[itemId].buyerDeposit,
             " Value is not equal with deposit"
         );
+        // a = a;
+        // ZK Snark Verification is here
+
+        require(verifyTx(a, b, c, input));
         items[itemId].sellerConfirmation = true;
+        return true;
     }
 
     function donePhase(bytes16 itemId) public {
@@ -226,8 +238,8 @@ import "hardhat/console.sol";
         if (
             items[itemId].sellerConfirmation && items[itemId].buyerConfirmation
         ) {
-             items[itemId].buyer.transfer( items[itemId].deposit);
-             items[itemId].seller.transfer( items[itemId].deposit);
+            items[itemId].buyer.transfer(items[itemId].deposit);
+            items[itemId].seller.transfer(items[itemId].deposit);
         }
     }
 
