@@ -134,13 +134,16 @@ function App(props) {
               signer={userProvider.getSigner()}
               provider={localProvider}
               address={address}
+              mainnetProvider={mainnetProvider}
               blockExplorer={blockExplorer}
+              readContracts={readContracts}
             />
           </Route>
           <Route path="/hints">
             <Hints
               address={address}
               yourLocalBalance={yourLocalBalance}
+
               mainnetProvider={mainnetProvider}
               price={price}
             />
