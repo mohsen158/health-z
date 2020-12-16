@@ -1,13 +1,13 @@
 import React, { useMemo, useState } from "react";
-import { Card, Typography, Row, Col, List, Empty, Input, Button, Divider } from "antd";
-
+import { Card, Typography, Row, Col, List, Empty, Input, Button, Divider, Modal } from "antd";
+import axios from "axios";
 import { useContractLoader, useContractExistsAtAddress, useEventListener, useContractReader } from "../../hooks";
 import Account from "../Account";
 import DisplayVariable from "./DisplayVariable";
 import FunctionForm from "./FunctionForm";
 import { Address } from "../index";
 // import { getHashValue} from "../../zkFiles/hash";
-import { getHashValue} from "c:/Users/mohsen/Desktop/health-z/packages/hardhat/zkStuff/hash";
+// import { getHashValue} from "";
 //  import { initialize } from 'zokrates-js';
 //const { initialize } = require('zokrates-js/node');
 
@@ -153,53 +153,101 @@ export default function Contract({
               <Col span={6}>
                 <Button
                   onClick={async () => {
-                    
-                    console.log("iam here", preImageCreateHashText);
-                    getHashValue( preImageCreateHashText , hash => {
-                      console.log(hash);
-                      //   hashZk.verifycation(
-                      //     [
-                      //       "0x00000000",
-                      //       "0x00000001",
-                      //       "0x00000002",
-                      //       "0x00000003",
-                      //       "0x00000004",
-                      //       "0x00000005",
-                      //       "0x00000006",
-                      //       "0x00000007",
-                      //       "0x00000008",
-                      //       "0x00000009",
-                      //       "0x00000010",
-                      //       "0x00000011",
-                      //       "0x00000012",
-                      //       "0x00000013",
-                      //       "0x00000014",
-                      //       "0x00000015",
-                      //     ],
-                      //     JSON.parse(hash)[0],
-                      //     async (proof) => {
-                      //       await myContract.getItemByIndex(0).then(async (res) => {
-                      //         //is day
+                    var def = [
+                      [
+                        "0x00000000",
+                        "0x00000001",
+                        "0x00000002",
+                        "0x00000003",
+                        "0x00000004",
+                        "0x00000005",
+                        "0x00000006",
+                        "0x00000007",
+                        "0x00000008",
+                        "0x00000009",
+                        "0x00000010",
+                        "0x00000011",
+                        "0x00000012",
+                        "0x00000013",
+                        "0x00000014",
+                        "0x00000015",
+                      ],
+                    ];
+                    axios
+                      .post(`http://localhost:3030/getHash`, {
+                        preImageCreateHashText: def,
+                      })
+                      .then(res => {
+                       var message = "Hash is : "
+                        info(message,res.data)
+                        console.log("res", res);
+                        console.log("res data:", res.data);
+                      });
+                    //   initialize().then((zokratesProvider) => {
+                    //     const source = "def main(private field a) -> field: return a * a";
 
-                      //         await myContract
-                      //           .buyerConfirmation(
-                      //             res.id,
-                      //             proof.proof.a,
-                      //             proof.proof.b,
-                      //             proof.proof.c,
-                      //             proof.inputs
-                      //           )
-                      //           .then(async (res) => {
-                      //             console.log("proof res:", res);
-                      //           });
-                      //       });
-                      //     }
-                      //   );
-                    });
+                    //     // compilation
+                    //     const artifacts = zokratesProvider.compile(source);
+
+                    //     // computation
+                    //     const { witness, output } = zokratesProvider.computeWitness(artifacts, ["2"]);
+
+                    //     // run setup
+                    //     const keypair = zokratesProvider.setup(artifacts.program);
+
+                    //     // generate proof
+                    //     const proof = zokratesProvider.generateProof(artifacts.program, witness, keypair.pk);
+
+                    //     // export solidity verifier
+                    //     const verifier = zokratesProvider.exportSolidityVerifier(keypair.vk, "v1");
+                    // });
+
+                    // console.log("iam here", preImageCreateHashText);
+                    // getHashValue( preImageCreateHashText , hash => {
+                    //   console.log(hash);
+                    //   //   hashZk.verifycation(
+                    //   //     [
+                    //   //       "0x00000000",
+                    //   //       "0x00000001",
+                    //   //       "0x00000002",
+                    //   //       "0x00000003",
+                    //   //       "0x00000004",
+                    //   //       "0x00000005",
+                    //   //       "0x00000006",
+                    //   //       "0x00000007",
+                    //   //       "0x00000008",
+                    //   //       "0x00000009",
+                    //   //       "0x00000010",
+                    //   //       "0x00000011",
+                    //   //       "0x00000012",
+                    //   //       "0x00000013",
+                    //   //       "0x00000014",
+                    //   //       "0x00000015",
+                    //   //     ],
+                    //   //     JSON.parse(hash)[0],
+                    //   //     async (proof) => {
+                    //   //       await myContract.getItemByIndex(0).then(async (res) => {
+                    //   //         //is day
+
+                    //   //         await myContract
+                    //   //           .buyerConfirmation(
+                    //   //             res.id,
+                    //   //             proof.proof.a,
+                    //   //             proof.proof.b,
+                    //   //             proof.proof.c,
+                    //   //             proof.inputs
+                    //   //           )
+                    //   //           .then(async (res) => {
+                    //   //             console.log("proof res:", res);
+                    //   //           });
+                    //   //       });
+                    //   //     }
+                    //   //   );
+                    // });
                   }}
                   type="primary"
                 >
-                  Primary
+                  Run
                 </Button>
               </Col>
             </Row>
@@ -260,4 +308,46 @@ export default function Contract({
       </Row>
     </div>
   );
+}
+// Modal
+function info(message , value) {
+  Modal.info({
+    title:message,
+    content: (
+      <div>
+        <p>{value}</p>
+     
+      </div>
+    ),
+    onOk() {
+      var dummy = document.createElement("textarea");
+      // to avoid breaking orgain page when copying more words
+      // cant copy when adding below this code
+      // dummy.style.display = 'none'
+      document.body.appendChild(dummy);
+      //Be careful if you use texarea. setAttribute('value', value), which works with "input" does not work with "textarea". – Eduard
+      dummy.value = value;
+      dummy.select();
+      document.execCommand("copy");
+    },
+  });
+}
+function success() {
+  Modal.success({
+    content: "some messages...some messages...",
+  });
+}
+
+function error() {
+  Modal.error({
+    title: "This is an error message",
+    content: "some messages...some messages...",
+  });
+}
+
+function warning() {
+  Modal.warning({
+    title: "This is a warning message",
+    content: "some messages...some messages...",
+  });
 }
