@@ -1,11 +1,16 @@
 import React, { useMemo, useState } from "react";
-import { Card, Typography, Row, Col, List, Empty, Input, Button,Divider } from "antd";
+import { Card, Typography, Row, Col, List, Empty, Input, Button, Divider } from "antd";
 
 import { useContractLoader, useContractExistsAtAddress, useEventListener, useContractReader } from "../../hooks";
 import Account from "../Account";
 import DisplayVariable from "./DisplayVariable";
 import FunctionForm from "./FunctionForm";
 import { Address } from "../index";
+// import { getHashValue} from "../../zkFiles/hash";
+import { getHashValue} from "c:/Users/mohsen/Desktop/health-z/packages/hardhat/zkStuff/hash";
+//  import { initialize } from 'zokrates-js';
+//const { initialize } = require('zokrates-js/node');
+
 const { Title, Paragraph, Text, Link } = Typography;
 let renderCount = 0;
 const noContractDisplay = (
@@ -94,6 +99,7 @@ export default function Contract({
   };
 
   const [refreshRequired, triggerRefresh] = useState(false);
+  const [preImageCreateHashText, setPreImageCreateHashText] = useState();
   // const [top, setTop] = useState(10);
   const contractDisplay = displayedContractFunctions.map(fn => {
     if (isQueryable(fn)) {
@@ -138,13 +144,68 @@ export default function Contract({
             </Row>
             <Row>
               <Col span={18}>
-                <Input placeholder="Basic usage" />
+                <Input
+                  placeholder="Basic usage"
+                  value={preImageCreateHashText}
+                  onChange={e => setPreImageCreateHashText(e.target.value)}
+                />
               </Col>
               <Col span={6}>
-                <Button type="primary">Primary</Button>
+                <Button
+                  onClick={async () => {
+                    
+                    console.log("iam here", preImageCreateHashText);
+                    getHashValue( preImageCreateHashText , hash => {
+                      console.log(hash);
+                      //   hashZk.verifycation(
+                      //     [
+                      //       "0x00000000",
+                      //       "0x00000001",
+                      //       "0x00000002",
+                      //       "0x00000003",
+                      //       "0x00000004",
+                      //       "0x00000005",
+                      //       "0x00000006",
+                      //       "0x00000007",
+                      //       "0x00000008",
+                      //       "0x00000009",
+                      //       "0x00000010",
+                      //       "0x00000011",
+                      //       "0x00000012",
+                      //       "0x00000013",
+                      //       "0x00000014",
+                      //       "0x00000015",
+                      //     ],
+                      //     JSON.parse(hash)[0],
+                      //     async (proof) => {
+                      //       await myContract.getItemByIndex(0).then(async (res) => {
+                      //         //is day
+
+                      //         await myContract
+                      //           .buyerConfirmation(
+                      //             res.id,
+                      //             proof.proof.a,
+                      //             proof.proof.b,
+                      //             proof.proof.c,
+                      //             proof.inputs
+                      //           )
+                      //           .then(async (res) => {
+                      //             console.log("proof res:", res);
+                      //           });
+                      //       });
+                      //     }
+                      //   );
+                    });
+                  }}
+                  type="primary"
+                >
+                  Primary
+                </Button>
               </Col>
             </Row>
-            <Row><Divider></Divider> </Row>
+            <Row>
+              <Divider></Divider>{" "}
+            </Row>
           </Card>
         </Col>
         <Col span={12}>
