@@ -100,6 +100,8 @@ export default function Contract({
 
   const [refreshRequired, triggerRefresh] = useState(false);
   const [preImageCreateHashText, setPreImageCreateHashText] = useState();
+  const [claimedPreImageText, setClaimedPreImageText] = useState();
+  const [hash, setHash] = useState();
   // const [top, setTop] = useState(10);
   const contractDisplay = displayedContractFunctions.map(fn => {
     if (isQueryable(fn)) {
@@ -134,13 +136,13 @@ export default function Contract({
           <Card
             style={styles.card}
             bodyStyle={styles.cardBody}
-            title="ZK tools"
+            title="ZK tools : Create hash from preImage string"
             size="large"
             style={{ marginTop: 25, width: "100%" }}
             loading={contractDisplay && contractDisplay.length <= 0}
           >
             <Row>
-              <Title level={4}> Create Hash </Title>
+              <Title level={5}> PreImage: </Title>
             </Row>
             <Row>
               <Col span={18}>
@@ -178,72 +180,11 @@ export default function Contract({
                         preImageCreateHashText: def,
                       })
                       .then(res => {
-                       var message = "Hash is : "
-                        info(message,res.data)
+                        var message = "Hash is : ";
+                        info(message, res.data);
                         console.log("res", res);
                         console.log("res data:", res.data);
                       });
-                    //   initialize().then((zokratesProvider) => {
-                    //     const source = "def main(private field a) -> field: return a * a";
-
-                    //     // compilation
-                    //     const artifacts = zokratesProvider.compile(source);
-
-                    //     // computation
-                    //     const { witness, output } = zokratesProvider.computeWitness(artifacts, ["2"]);
-
-                    //     // run setup
-                    //     const keypair = zokratesProvider.setup(artifacts.program);
-
-                    //     // generate proof
-                    //     const proof = zokratesProvider.generateProof(artifacts.program, witness, keypair.pk);
-
-                    //     // export solidity verifier
-                    //     const verifier = zokratesProvider.exportSolidityVerifier(keypair.vk, "v1");
-                    // });
-
-                    // console.log("iam here", preImageCreateHashText);
-                    // getHashValue( preImageCreateHashText , hash => {
-                    //   console.log(hash);
-                    //   //   hashZk.verifycation(
-                    //   //     [
-                    //   //       "0x00000000",
-                    //   //       "0x00000001",
-                    //   //       "0x00000002",
-                    //   //       "0x00000003",
-                    //   //       "0x00000004",
-                    //   //       "0x00000005",
-                    //   //       "0x00000006",
-                    //   //       "0x00000007",
-                    //   //       "0x00000008",
-                    //   //       "0x00000009",
-                    //   //       "0x00000010",
-                    //   //       "0x00000011",
-                    //   //       "0x00000012",
-                    //   //       "0x00000013",
-                    //   //       "0x00000014",
-                    //   //       "0x00000015",
-                    //   //     ],
-                    //   //     JSON.parse(hash)[0],
-                    //   //     async (proof) => {
-                    //   //       await myContract.getItemByIndex(0).then(async (res) => {
-                    //   //         //is day
-
-                    //   //         await myContract
-                    //   //           .buyerConfirmation(
-                    //   //             res.id,
-                    //   //             proof.proof.a,
-                    //   //             proof.proof.b,
-                    //   //             proof.proof.c,
-                    //   //             proof.inputs
-                    //   //           )
-                    //   //           .then(async (res) => {
-                    //   //             console.log("proof res:", res);
-                    //   //           });
-                    //   //       });
-                    //   //     }
-                    //   //   );
-                    // });
                   }}
                   type="primary"
                 >
@@ -251,9 +192,78 @@ export default function Contract({
                 </Button>
               </Col>
             </Row>
-            <Row>
+            {/* <Row>
               <Divider></Divider>{" "}
+            </Row> */}
+          </Card>{" "}
+          <Card
+            style={styles.card}
+            bodyStyle={styles.cardBody}
+            title="ZK tools: create proof from preImage and hash"
+            size="large"
+            style={{ marginTop: 25, width: "100%" }}
+            loading={contractDisplay && contractDisplay.length <= 0}
+          >
+            <Row>
+              <Title level={5}> PreImage and Hash: </Title>
             </Row>
+            <Row>
+              <Col span={18}>
+                <Input
+                  placeholder="Claimed PreImage"
+                  value={claimedPreImageText}
+                  onChange={e => setClaimedPreImageText(e.target.value)}
+                />
+              </Col>
+            </Row>
+            <Row style={{ marginTop: 10 }}>
+              <Col span={18}>
+                <Input placeholder=" Hash" value={hash} onChange={e => setHash(e.target.value)} />
+              </Col>
+              <Col span={6}>
+                <Button
+                  onClick={async () => {
+                    var def = [
+                      [
+                        "0x00000000",
+                        "0x00000001",
+                        "0x00000002",
+                        "0x00000003",
+                        "0x00000004",
+                        "0x00000005",
+                        "0x00000006",
+                        "0x00000007",
+                        "0x00000008",
+                        "0x00000009",
+                        "0x00000010",
+                        "0x00000011",
+                        "0x00000012",
+                        "0x00000013",
+                        "0x00000014",
+                        "0x00000015"
+                      ]
+                    ];
+                    axios
+                      .post(`http://localhost:3030/getProof`, {
+                        claimedPreImageText,
+                        hash:JSON.parse(hash) 
+                      })
+                      .then(res => {
+                        var message = "Proof is : ";
+                        info(message, res.data);
+                        console.log("res", res);
+                        console.log("res data:", res.data);
+                      });
+                  }}
+                  type="primary"
+                >
+                  Run
+                </Button>
+              </Col>
+            </Row>
+            {/* <Row>
+              <Divider></Divider>{" "}
+            </Row> */}
           </Card>
         </Col>
         <Col span={12}>
@@ -310,13 +320,12 @@ export default function Contract({
   );
 }
 // Modal
-function info(message , value) {
+function info(message, value) {
   Modal.info({
-    title:message,
+    title: message,
     content: (
       <div>
         <p>{value}</p>
-     
       </div>
     ),
     onOk() {

@@ -1,46 +1,34 @@
-const { initialize } = require('zokrates-js/node');
+const { initialize } = require("zokrates-js/node");
 
-const express = require('express')
-const app = express()
-const port = 3030
+const express = require("express");
+const app = express();
+const port = 3030;
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-var cors = require('cors')
-app.use(cors())
-app.post('/getHash', (req, res) => {
-  initialize().then(async (zokratesProvider) => {
-
-
-    await getHashValue(req.body.preImageCreateHashText,(hash)=>{
-      res.send(hash)
-    });
-    const source = "def main(private field a) -> field: return a * a";
-
-    // compilation
-    const artifacts = zokratesProvider.compile(source);
-
-    // computation
-    const { witness, output } = zokratesProvider.computeWitness(artifacts, ["2"]);
-
-    // run setup
-    const keypair = zokratesProvider.setup(artifacts.program);
-
-    // generate proof
-    const proof = zokratesProvider.generateProof(artifacts.program, witness, keypair.pk);
-
-    // export solidity verifier
-    const verifier = zokratesProvider.exportSolidityVerifier(keypair.vk, "v1");
-    // console.log(req.body)
-    // res.send(req.body)
+var cors = require("cors");
+app.use(cors());
+app.post("/getHash", (req, res) => {
+  getHashValue(req.body.preImageCreateHashText, (hash) => {
+    res.send(JSON.stringify(hash));
+  });
 });
+app.post("/getProof", (req, res) => {
+  console.log("preimage for proof:",  req.body.claimedPreImageText );
+
   
-})
+  verifycation(
+    JSON.parse(req.body.claimedPreImageText),
+    JSON.parse(req.body.hash),
+    (proof) => {
+      res.send(proof);
+    }
+  );
+});
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
-
+  console.log(`Example app listening at http://localhost:${port}`);
+});
 
 const fs = require("fs");
 
@@ -65,24 +53,35 @@ const getHashValue = (preImage, callb) => {
     readZokFile("zkhash", (source) => {
       // console.log(source);
       const artifacts = zokratesProvider.compile(source);
-      const { witness, output } = zokratesProvider.computeWitness(artifacts,  preImage);
-      // console.log("this is witness", witness);
-      callb(output);
+      const { witness, output } = zokratesProvider.computeWitness(
+        artifacts,
+        preImage
+      );
+      console.log("this is output", output);
+      callb(JSON.stringify(output));
     });
   });
 };
 
 const verifycation = (preImage, hash, callb) => {
+
+
+  console.log("preimage for proof in func:", preImage);
+  console.log("hash for proof in func:",hash);
   initialize().then((zokratesProvider) => {
     readZokFile("main", (source) => {
       // console.log(source);
       const artifacts = zokratesProvider.compile(source);
       const { witness, output } = zokratesProvider.computeWitness(artifacts, [
-       preImage,
+        preImage,
         hash,
       ]);
       const keypair = zokratesProvider.setup(artifacts.program);
-      const proof = zokratesProvider.generateProof(artifacts.program, witness, keypair.pk);
+      const proof = zokratesProvider.generateProof(
+        artifacts.program,
+        witness,
+        keypair.pk
+      );
 
       // console.log("this is witness", witness);
       callb(proof);
