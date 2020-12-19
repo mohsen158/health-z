@@ -154,7 +154,7 @@ export default function Hints({yourLocalBalance, mainnetProvider, price, address
         </span>
       </div>
 
-      <div style={{ marginTop: 32 }}>
+      {/* <div style={{ marginTop: 32 }}>
         <span style={{ marginRight: 8 }}>💬</span>
         for support, join this
         <span style={{ marginLeft: 4, backgroundColor: "#f9f9f9", padding: 4, borderRadius: 4, fontWeight: "bolder" }}>
@@ -162,7 +162,7 @@ export default function Hints({yourLocalBalance, mainnetProvider, price, address
             Telegram Chat
           </a>
         </span>
-      </div>
+      </div> */}
       <div style={{ padding: 128 }}>
         🛠 Check out your browser's developer console for more... (inpect -> console) 🚀
       </div>
