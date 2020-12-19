@@ -240,17 +240,17 @@ export default function Contract({
                         "0x00000012",
                         "0x00000013",
                         "0x00000014",
-                        "0x00000015"
-                      ]
+                        "0x00000015",
+                      ],
                     ];
                     axios
                       .post(`http://localhost:3030/getProof`, {
                         claimedPreImageText,
-                        hash:JSON.parse(hash) 
+                        hash,
                       })
                       .then(res => {
                         var message = "Proof is : ";
-                        info(message, res.data);
+                        info(message, JSON.stringify(res.data));
                         console.log("res", res);
                         console.log("res data:", res.data);
                       });
@@ -260,6 +260,52 @@ export default function Contract({
                   Run
                 </Button>
               </Col>
+            </Row>
+            <Row style={{ marginTop: 10 }}>
+              <Button
+                type="dashed"
+                onClick={async () => {
+                  setHash(
+                    JSON.stringify([
+                      [
+                        "0x9ba99edb",
+                        "0xaf002e05",
+                        "0xf7660405",
+                        "0x5a8a0c72",
+                        "0x2352d8e2",
+                        "0x857af4cf",
+                        "0xdb178144",
+                        "0xc49d722e",
+                      ],
+                    ]),
+                  );
+                  setClaimedPreImageText(
+                    JSON.stringify([
+                      [
+                        "0x00000000",
+                        "0x00000001",
+                        "0x00000002",
+                        "0x00000003",
+                        "0x00000004",
+                        "0x00000005",
+                        "0x00000006",
+                        "0x00000007",
+                        "0x00000008",
+                        "0x00000009",
+                        "0x00000010",
+                        "0x00000011",
+                        "0x00000012",
+                        "0x00000013",
+                        "0x00000014",
+                        "0x00000015",
+                      ],
+                    ]),
+                  );
+                }}
+              >
+                {" "}
+                Set Sample Data{" "}
+              </Button>
             </Row>
             {/* <Row>
               <Divider></Divider>{" "}
@@ -318,45 +364,48 @@ export default function Contract({
       </Row>
     </div>
   );
+  function info(message, value) {
+    Modal.info({
+      title: message,
+      content: (
+        <div>
+          <p>{value}</p>
+        </div>
+      ),
+      onOk() {
+        if (message == "Hash is : ") {
+          setHash(JSON.parse(value));
+        }
+        var dummy = document.createElement("textarea");
+        // to avoid breaking orgain page when copying more words
+        // cant copy when adding below this code
+        // dummy.style.display = 'none'
+        document.body.appendChild(dummy);
+        //Be careful if you use texarea. setAttribute('value', value), which works with "input" does not work with "textarea". – Eduard
+        dummy.value = value;
+        dummy.select();
+        document.execCommand("copy");
+      },
+    });
+  }
+  function success() {
+    Modal.success({
+      content: "some messages...some messages...",
+    });
+  }
+
+  function error() {
+    Modal.error({
+      title: "This is an error message",
+      content: "some messages...some messages...",
+    });
+  }
+
+  function warning() {
+    Modal.warning({
+      title: "This is a warning message",
+      content: "some messages...some messages...",
+    });
+  }
 }
 // Modal
-function info(message, value) {
-  Modal.info({
-    title: message,
-    content: (
-      <div>
-        <p>{value}</p>
-      </div>
-    ),
-    onOk() {
-      var dummy = document.createElement("textarea");
-      // to avoid breaking orgain page when copying more words
-      // cant copy when adding below this code
-      // dummy.style.display = 'none'
-      document.body.appendChild(dummy);
-      //Be careful if you use texarea. setAttribute('value', value), which works with "input" does not work with "textarea". – Eduard
-      dummy.value = value;
-      dummy.select();
-      document.execCommand("copy");
-    },
-  });
-}
-function success() {
-  Modal.success({
-    content: "some messages...some messages...",
-  });
-}
-
-function error() {
-  Modal.error({
-    title: "This is an error message",
-    content: "some messages...some messages...",
-  });
-}
-
-function warning() {
-  Modal.warning({
-    title: "This is a warning message",
-    content: "some messages...some messages...",
-  });
-}

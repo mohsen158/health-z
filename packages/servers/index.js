@@ -14,9 +14,8 @@ app.post("/getHash", (req, res) => {
   });
 });
 app.post("/getProof", (req, res) => {
-  console.log("preimage for proof:",  req.body.claimedPreImageText );
+  console.log("preimage for proof:", req.body.claimedPreImageText);
 
-  
   verifycation(
     JSON.parse(req.body.claimedPreImageText),
     JSON.parse(req.body.hash),
@@ -64,17 +63,15 @@ const getHashValue = (preImage, callb) => {
 };
 
 const verifycation = (preImage, hash, callb) => {
-
-
-  console.log("preimage for proof in func:", preImage);
-  console.log("hash for proof in func:",hash);
+  console.log("preimage for proof in func:", preImage[0]);
+  console.log("hash for proof in func:", hash);
   initialize().then((zokratesProvider) => {
     readZokFile("main", (source) => {
       // console.log(source);
       const artifacts = zokratesProvider.compile(source);
       const { witness, output } = zokratesProvider.computeWitness(artifacts, [
-        preImage,
-        hash,
+        preImage[0],
+        hash[0],
       ]);
       const keypair = zokratesProvider.setup(artifacts.program);
       const proof = zokratesProvider.generateProof(
@@ -83,7 +80,7 @@ const verifycation = (preImage, hash, callb) => {
         keypair.pk
       );
 
-      // console.log("this is witness", witness);
+       console.log("this is proof", proof);
       callb(proof);
     });
   });
