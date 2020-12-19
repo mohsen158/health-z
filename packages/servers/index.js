@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 var cors = require("cors");
 app.use(cors());
 app.post("/getHash", (req, res) => {
-  getHashValue(req.body.preImageCreateHashText, (hash) => {
+  getHashValue(JSON.parse(req.body.preImageCreateHashText), (hash) => {
     res.send(JSON.stringify(hash));
   });
 });
@@ -80,7 +80,7 @@ const verifycation = (preImage, hash, callb) => {
         keypair.pk
       );
 
-       console.log("this is proof", proof);
+      console.log("this is proof", proof);
       callb(proof);
     });
   });
