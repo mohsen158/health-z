@@ -41,6 +41,7 @@ export default function Hints({
   const newInfoAddedEvent = useEventListener(readContracts, "HealthZ", "newInfoAddedEvent", provider, 1);
   console.log("📟 SetPurpose events:", setPurposeEvents);
   const [infoes, setInfoes] = useState([]);
+  const [items, setItems] = useState([]);
   const displayedContractFunctions = useMemo(
     () =>
       contract
@@ -99,8 +100,46 @@ export default function Hints({
         </Col>
 
         <Col span={12}>
-          <Card title="Items list" bordered={false}>
-            Items{" "}
+        <Card title="Item  list" bordered={false}>
+            <Button
+              type="primary"
+              icon={<DownloadOutlined />}
+              onClick={async () => {
+                try {
+                  const itemSize = await contract["itemSize"]();
+                  let itemIdFn = displayedContractFunctions.find(fn => fn.name === "itemsId");
+                  let itemsFn = displayedContractFunctions.find(fn => fn.name === "items");
+
+                  for (let i = 0; i < itemSize; i++) {
+                    const itemsId = await tx(contract.connect(signer)[itemIdFn.name](i));
+                    const item = await tx(contract.connect(signer)[itemIdFn.name](itemsId));
+                    setItems(old => [...old, item]);
+                  }
+                } catch (err) {
+                  console.log(err);
+                }
+              }}
+              size={"large"}
+            >
+              {console.log(displayedContractFunctions)}
+              Get Infoes
+            </Button>
+            <List
+              bordered
+              dataSource={items}
+              renderItem={item => (
+                <List.Item>
+                  <Card hoverable  style={{ width: '100%' }}>
+                  <Paragraph ellipsis={{ rows: 1, expandable: true, symbol: 'more' }}>
+                    {/* <Typography.Text mark>[ITEM]</Typography.Text> {item} */}
+                    {item["creator"]}
+                  
+                    </Paragraph>
+                    <Meta title= {item["detail"]} description="www.instagram.com" />
+                  </Card>
+                </List.Item>
+              )}
+            />
           </Card>
         </Col>
       </Row>
