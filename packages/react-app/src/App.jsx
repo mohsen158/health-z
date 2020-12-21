@@ -164,9 +164,14 @@ function App(props) {
           </Route>
           <Route path="/hints">
             <Hints
+              name="HealthZ"
               address={address}
+              signer={userProvider.getSigner()}
+              provider={localProvider}
               yourLocalBalance={yourLocalBalance}
+              blockExplorer={blockExplorer}
               mainnetProvider={mainnetProvider}
+              readContracts={readContracts}
               price={price}
             />
           </Route>
@@ -219,7 +224,7 @@ function App(props) {
           <Col span={12} style={{ textAlign: "center", opacity: 0.8 }}>
             <GasGauge gasPrice={gasPrice} />
           </Col> */}
-          {/* <Col span={8} style={{ textAlign: "center", opacity: 1 }}>
+        {/* <Col span={8} style={{ textAlign: "center", opacity: 1 }}>
              <Button
                onClick={() => {
                  window.open("https://t.me/joinchat/KByvmRe5wkR-8F_zz6AjpA");
@@ -253,7 +258,7 @@ function App(props) {
           </Col>
           <Col span={3}>
             <Row>
-            <GasGauge gasPrice={gasPrice} />
+              <GasGauge gasPrice={gasPrice} />
             </Row>
             <Row>
               <Ramp price={price} address={address} />

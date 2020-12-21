@@ -34,9 +34,11 @@ contract HealthZ is zkVerifier {
     string public purpose = "🛠 Programming Unstoppable Money";
 
     // *** Mapping ***
+     uint16 public infoSize = 0;
     mapping(bytes16 => Info) public infos;
     bytes16[] public infosId;
 
+     uint16 public  itemSize = 0;
     mapping(bytes16 => Item) public items;
     bytes16[] public itemsId;
 
@@ -147,6 +149,7 @@ contract HealthZ is zkVerifier {
         i.creator = msg.sender;
         infosId.push(infoId);
         emit newInfoAddedEvent(msg.sender,"new Info added",i.creator,infoId,detail,i.hash);
+        infoSize=infoSize+1;
         return infoId;
     }
 
@@ -174,6 +177,7 @@ contract HealthZ is zkVerifier {
         i.endTime = endTime * 1 days;
 
         itemsId.push(itemId);
+        itemSize= itemSize+1;
         return itemId;
     }
 

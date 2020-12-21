@@ -110,7 +110,7 @@ export default function Contract({
   const contractDisplay = displayedContractFunctions.map(fn => {
     if (isQueryable(fn)) {
       // If there are no inputs, just display return value
-      return (
+       return (
         <DisplayVariable
           key={fn.name}
           contractFunction={contract[fn.name]}
@@ -121,7 +121,7 @@ export default function Contract({
       );
     }
     // If there are inputs, display a form to allow users to provide these
-    return (
+     return (
       <FunctionForm
         key={"FF" + fn.name}
         contractFunction={contract.connect(signer)[fn.name]}

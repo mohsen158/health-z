@@ -165,7 +165,7 @@ export default function FunctionForm({ contractFunction, functionInfo, provider,
                 }
                 return value
               });
-
+console.log("edit args:",args)
               const overrides = {};
               if (txValue) {
                 overrides.value = txValue; // ethers.utils.parseEther()
