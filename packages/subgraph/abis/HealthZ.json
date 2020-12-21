@@ -29,6 +29,18 @@
       {
         "indexed": false,
         "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
         "name": "creator",
         "type": "address"
       },
@@ -51,7 +63,7 @@
         "type": "bytes32"
       }
     ],
-    "name": "newInfoEvent",
+    "name": "newInfoAddedEvent",
     "type": "event"
   },
   {

@@ -63,6 +63,7 @@ export default function Contract({
 
   //📟 Listen for broadcast events
   const setPurposeEvents = useEventListener(readContracts, "HealthZ", "SetPurpose", provider, 1);
+  const newInfoAddedEvent = useEventListener(readContracts, "HealthZ", "newInfoAddedEvent", provider, 1);
   console.log("📟 SetPurpose events:", setPurposeEvents);
   const displayedContractFunctions = useMemo(
     () =>
@@ -434,19 +435,20 @@ export default function Contract({
         <Col span={6} style={{ marginTop: 25, padding: "0 24px" }}>
           <Card title="Events">
             {" "}
-            {setPurposeEvents ? (
+            {  setPurposeEvents  || newInfoAddedEvent   ? (
               <List
-                bordered
-                dataSource={setPurposeEvents}
-                renderItem={item => {
-                  return (
-                    <List.Item key={item.blockNumber + "_" + item.sender + "_" + item.purpose}>
-                      <Address value={item[0]} ensProvider={mainnetProvider} fontSize={16} /> =>
-                      {item[1]}
-                    </List.Item>
-                  );
-                }}
-              />
+              bordered
+              dataSource={[...setPurposeEvents,...newInfoAddedEvent]}
+              renderItem={item => {
+                return (
+                  <List.Item key={item.blockNumber + "_" + item.sender + "_" + item.purpose}>
+                    <Address value={item[0]} ensProvider={mainnetProvider} fontSize={16} /> =>
+                    {item[1]}
+                  </List.Item>
+                );
+              }}
+            />
+             
             ) : (
               <Empty />
             )}

@@ -49,7 +49,9 @@ contract HealthZ is zkVerifier {
     // Events
 
     event SetPurpose(address sender, string purpose);
-    event newInfoEvent(
+    event newInfoAddedEvent(
+        address sender,
+        string title,
         address creator,
         bytes16 id,
         // address owner;
@@ -144,6 +146,7 @@ contract HealthZ is zkVerifier {
         i.id = infoId;
         i.creator = msg.sender;
         infosId.push(infoId);
+        emit newInfoAddedEvent(msg.sender,"new Info added",i.creator,infoId,detail,i.hash);
         return infoId;
     }
 
