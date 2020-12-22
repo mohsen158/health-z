@@ -1,6 +1,6 @@
 pragma solidity >=0.6.0 <0.7.0;
+ //import "hardhat/console.sol";
 
-import "hardhat/console.sol";
 import "./zkVerifier.sol";
 
 //import "@openzeppelin/contracts/access/Ownable.sol"; //https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/Ownable.sol
@@ -26,7 +26,7 @@ contract HealthZ is zkVerifier {
         // address owner;
         // address contractAddress;
         string detail;
-        bytes32 hash;
+        bytes32[] hash;
     }
 
     // *** Variable ***
@@ -59,7 +59,7 @@ contract HealthZ is zkVerifier {
         // address owner;
         // address contractAddress;
         string detail,
-        bytes32 hash
+        bytes32[8] hash
     );
 
     event newItemEvent();
@@ -73,8 +73,7 @@ contract HealthZ is zkVerifier {
         //  console.log(randomId());
         // console.logBytes16(randomId());
         purpose = newPurpose;
-        console.log(msg.sender, "set purpose to", purpose);
-        emit SetPurpose(msg.sender, purpose);
+         emit SetPurpose(msg.sender, purpose);
     }
 
     // *** Getter Methods ***
@@ -87,7 +86,7 @@ contract HealthZ is zkVerifier {
             // address owner;
             // address contractAddress;
             string memory detail,
-            bytes32 hash
+            bytes32[] memory hash
         )
     {
         bytes16 infoId = infosId[i];
@@ -134,7 +133,7 @@ contract HealthZ is zkVerifier {
 
     // *** Setter Methods ***
 
-    function newInfo(string memory detail)
+    function newInfo(string memory detail, bytes32[8] memory hash )
         public
         returns (
             bytes16 //TODO new modifier
@@ -147,8 +146,9 @@ contract HealthZ is zkVerifier {
         i.detail = detail;
         i.id = infoId;
         i.creator = msg.sender;
+        i.hash=hash;
         infosId.push(infoId);
-        emit newInfoAddedEvent(msg.sender,"new Info added",i.creator,infoId,detail,i.hash);
+        emit newInfoAddedEvent(msg.sender,"new Info added",i.creator,infoId,detail,hash);
         infoSize=infoSize+1;
         return infoId;
     }

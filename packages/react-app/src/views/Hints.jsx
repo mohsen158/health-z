@@ -89,7 +89,8 @@ export default function Hints({
                   <Paragraph ellipsis={{ rows: 1, expandable: true, symbol: 'more' }}>
                     {/* <Typography.Text mark>[ITEM]</Typography.Text> {item} */}
                     {item["creator"]}
-                  
+                    {item["hash"]}
+
                     </Paragraph>
                     <Meta title= {item["detail"]} description="www.instagram.com" />
                   </Card>
@@ -106,6 +107,21 @@ export default function Hints({
               icon={<DownloadOutlined />}
               onClick={async () => {
                 try {
+                  // let testTr = displayedContractFunctions.find(fn => fn.name === "newInfo");
+                  // const hashh = [
+                    //   "0x6c00000000000000000000000000000000000000000000000000000000000000",
+                  //   "0x6c00000000000000000000000000000000000000000000000000000000000000",
+                  //   "0x6c00000000000000000000000000000000000000000000000000000000000000",
+                  //   "0x6c00000000000000000000000000000000000000000000000000000000000000",
+                  //   "0x6c00000000000000000000000000000000000000000000000000000000000000",
+                  //   "0x6c00000000000000000000000000000000000000000000000000000000000000",
+                  //   "0x6c00000000000000000000000000000000000000000000000000000000000000",
+                  //   "0x6c00000000000000000000000000000000000000000000000000000000000000"
+                  // ];
+                  // const itemsId = await tx(contract.connect(signer)[testTr.name]("det",hashh));
+                  
+                  
+                  
                   const itemSize = await contract["itemSize"]();
                   let itemIdFn = displayedContractFunctions.find(fn => fn.name === "itemsId");
                   let itemsFn = displayedContractFunctions.find(fn => fn.name === "items");
@@ -114,6 +130,7 @@ export default function Hints({
                     const itemsId = await tx(contract.connect(signer)[itemIdFn.name](i));
                     const item = await tx(contract.connect(signer)[itemIdFn.name](itemsId));
                     setItems(old => [...old, item]);
+ 
                   }
                 } catch (err) {
                   console.log(err);
@@ -121,8 +138,7 @@ export default function Hints({
               }}
               size={"large"}
             >
-              {console.log(displayedContractFunctions)}
-              Get Infoes
+               Get Infoes
             </Button>
             <List
               bordered
@@ -133,7 +149,6 @@ export default function Hints({
                   <Paragraph ellipsis={{ rows: 1, expandable: true, symbol: 'more' }}>
                     {/* <Typography.Text mark>[ITEM]</Typography.Text> {item} */}
                     {item["creator"]}
-                  
                     </Paragraph>
                     <Meta title= {item["detail"]} description="www.instagram.com" />
                   </Card>

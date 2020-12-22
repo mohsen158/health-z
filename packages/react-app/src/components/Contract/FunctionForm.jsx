@@ -163,14 +163,16 @@ export default function FunctionForm({ contractFunction, functionInfo, provider,
                     value = 0;
                   }
                 }
+                if(input. arrayLength != null){
+                  return JSON.parse(value)
+                }
                 return value
               });
-console.log("edit args:",args)
               const overrides = {};
               if (txValue) {
                 overrides.value = txValue; // ethers.utils.parseEther()
               }
-
+             
               // console.log("Running with extras",extras)
               const returned = await tx(contractFunction(...args, overrides));
               const result = tryToDisplay(returned);

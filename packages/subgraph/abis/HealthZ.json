@@ -58,9 +58,9 @@
       },
       {
         "indexed": false,
-        "internalType": "bytes32",
+        "internalType": "bytes32[8]",
         "name": "hash",
-        "type": "bytes32"
+        "type": "bytes32[8]"
       }
     ],
     "name": "newInfoAddedEvent",
@@ -163,9 +163,9 @@
         "type": "string"
       },
       {
-        "internalType": "bytes32",
+        "internalType": "bytes32[]",
         "name": "hash",
-        "type": "bytes32"
+        "type": "bytes32[]"
       }
     ],
     "stateMutability": "view",
@@ -277,11 +277,6 @@
         "internalType": "string",
         "name": "detail",
         "type": "string"
-      },
-      {
-        "internalType": "bytes32",
-        "name": "hash",
-        "type": "bytes32"
       }
     ],
     "stateMutability": "view",
@@ -413,6 +408,11 @@
         "internalType": "string",
         "name": "detail",
         "type": "string"
+      },
+      {
+        "internalType": "bytes32[8]",
+        "name": "hash",
+        "type": "bytes32[8]"
       }
     ],
     "name": "newInfo",
