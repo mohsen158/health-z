@@ -62,13 +62,13 @@ export default function Hints({
               onClick={async () => {
                 try {
                   const infoSize = await contract["infoSize"]();
-                  let infoeIdFn = displayedContractFunctions.find(fn => fn.name === "infosId");
-                  let infosFn = displayedContractFunctions.find(fn => fn.name === "infos");
+                  let getInfoByIndex = displayedContractFunctions.find(fn => fn.name === "getInfoByIndex");
+                  setInfoes([]);
 
                   for (let i = 0; i < infoSize; i++) {
-                    const infoesId = await tx(contract.connect(signer)[infoeIdFn.name](i));
-                    const info = await tx(contract.connect(signer)[infosFn.name](infoesId));
-                    console.log("this is info :", info);
+                    let info =[]
+                    info = await tx(contract.connect(signer)[getInfoByIndex.name](i));
+                    // console.log("this is info :", info);
                     setInfoes(old => [...old, info]);
                   }
                 } catch (err) {
@@ -82,17 +82,18 @@ export default function Hints({
             </Button>
             <List
               bordered
+             
               dataSource={infoes}
               renderItem={item => (
-                <List.Item>
+                <List.Item key={item.id}>
                   <Card hoverable  style={{ width: '100%' }}>
                   <Paragraph ellipsis={{ rows: 1, expandable: true, symbol: 'more' }}>
-                    {/* <Typography.Text mark>[ITEM]</Typography.Text> {item} */}
-                    {item["creator"]}
-                    {item["hash"]}
+                     {item["creator"]}
+                
+                    <Meta title= {item["id"]} description="www.instagram.com" />
 
                     </Paragraph>
-                    <Meta title= {item["detail"]} description="www.instagram.com" />
+                    <Meta title= {item["infoHash"][0]._hex} description="www.instagram.com" />
                   </Card>
                 </List.Item>
               )}
@@ -123,12 +124,11 @@ export default function Hints({
                   
                   
                   const itemSize = await contract["itemSize"]();
-                  let itemIdFn = displayedContractFunctions.find(fn => fn.name === "itemsId");
-                  let itemsFn = displayedContractFunctions.find(fn => fn.name === "items");
-
+                  let getItemByIndex = displayedContractFunctions.find(fn => fn.name === "getItemByIndex");
+                  setItems([])
                   for (let i = 0; i < itemSize; i++) {
-                    const itemsId = await tx(contract.connect(signer)[itemIdFn.name](i));
-                    const item = await tx(contract.connect(signer)[itemIdFn.name](itemsId));
+                    const item = await tx(contract.connect(signer)[getItemByIndex.name](i));
+                    console.log(item)
                     setItems(old => [...old, item]);
  
                   }
@@ -138,7 +138,7 @@ export default function Hints({
               }}
               size={"large"}
             >
-               Get Infoes
+               Get Items
             </Button>
             <List
               bordered
@@ -148,9 +148,15 @@ export default function Hints({
                   <Card hoverable  style={{ width: '100%' }}>
                   <Paragraph ellipsis={{ rows: 1, expandable: true, symbol: 'more' }}>
                     {/* <Typography.Text mark>[ITEM]</Typography.Text> {item} */}
-                    {item["creator"]}
+                    
+                  console.log(item)
+
                     </Paragraph>
-                    <Meta title= {item["detail"]} description="www.instagram.com" />
+                    <Meta title= "id" description= {item["id"]} />
+                    <Meta title= "seller" description= {item["seller"]} />
+                    <Meta title= "buyer" description= {item["buyer"]} />
+                    <Meta title= "price" description= {item["price"]._hex} />
+                    <Meta title= "sellerConfirmation" description= {item["sellerConfirmation"]} />
                   </Card>
                 </List.Item>
               )}

@@ -58,9 +58,9 @@
       },
       {
         "indexed": false,
-        "internalType": "bytes32[8]",
-        "name": "hash",
-        "type": "bytes32[8]"
+        "internalType": "uint256[9]",
+        "name": "infoHash",
+        "type": "uint256[9]"
       }
     ],
     "name": "newInfoAddedEvent",
@@ -93,11 +93,6 @@
         "internalType": "uint256[2]",
         "name": "c",
         "type": "uint256[2]"
-      },
-      {
-        "internalType": "uint256[9]",
-        "name": "input",
-        "type": "uint256[9]"
       }
     ],
     "name": "buyerConfirmation",
@@ -163,9 +158,9 @@
         "type": "string"
       },
       {
-        "internalType": "bytes32[]",
-        "name": "hash",
-        "type": "bytes32[]"
+        "internalType": "uint256[9]",
+        "name": "infoHash",
+        "type": "uint256[9]"
       }
     ],
     "stateMutability": "view",
@@ -410,9 +405,9 @@
         "type": "string"
       },
       {
-        "internalType": "bytes32[8]",
+        "internalType": "uint256[8]",
         "name": "hash",
-        "type": "bytes32[8]"
+        "type": "uint256[8]"
       }
     ],
     "name": "newInfo",

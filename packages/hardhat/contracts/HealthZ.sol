@@ -26,7 +26,7 @@ contract HealthZ is zkVerifier {
         // address owner;
         // address contractAddress;
         string detail;
-        bytes32[] hash;
+         uint[9]  infoHash;
     }
 
     // *** Variable ***
@@ -59,7 +59,7 @@ contract HealthZ is zkVerifier {
         // address owner;
         // address contractAddress;
         string detail,
-        bytes32[8] hash
+        uint[9] infoHash
     );
 
     event newItemEvent();
@@ -86,7 +86,7 @@ contract HealthZ is zkVerifier {
             // address owner;
             // address contractAddress;
             string memory detail,
-            bytes32[] memory hash
+           uint[9] memory infoHash
         )
     {
         bytes16 infoId = infosId[i];
@@ -94,7 +94,7 @@ contract HealthZ is zkVerifier {
             infos[infoId].creator,
             infos[infoId].id,
             infos[infoId].detail,
-            infos[infoId].hash
+            infos[infoId].infoHash
         );
     }
 
@@ -133,7 +133,7 @@ contract HealthZ is zkVerifier {
 
     // *** Setter Methods ***
 
-    function newInfo(string memory detail, bytes32[8] memory hash )
+    function newInfo(string memory detail, uint[8] memory hash )
         public
         returns (
             bytes16 //TODO new modifier
@@ -146,9 +146,10 @@ contract HealthZ is zkVerifier {
         i.detail = detail;
         i.id = infoId;
         i.creator = msg.sender;
-        i.hash=hash;
+         i.infoHash=hash;
+       i.infoHash[8]=1;
         infosId.push(infoId);
-        emit newInfoAddedEvent(msg.sender,"new Info added",i.creator,infoId,detail,hash);
+        emit newInfoAddedEvent(msg.sender,"new Info added",i.creator,infoId,detail, i.infoHash);
         infoSize=infoSize+1;
         return infoId;
     }
@@ -219,8 +220,8 @@ contract HealthZ is zkVerifier {
         bytes16 itemId,
         uint256[2] memory a,
         uint256[2][2] memory b,
-        uint256[2] memory c,
-        uint256[9] memory input // ,
+        uint256[2] memory c
+         // ,
     ) public returns (bool) {
         require(items[itemId].buyer == msg.sender, "Another buyer accepted");
 
@@ -234,8 +235,8 @@ contract HealthZ is zkVerifier {
         );
         // a = a;
         // ZK Snark Verification is here
-
-        require(verifyTx(a, b, c, input));
+        
+        require(verifyTx(a, b, c, infos[ items[itemId].infoId].infoHash));
         items[itemId].sellerConfirmation = true;
         return true;
     }

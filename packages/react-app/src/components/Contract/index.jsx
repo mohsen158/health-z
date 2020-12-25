@@ -4,6 +4,8 @@ import axios from "axios";
 import { useContractLoader, useContractExistsAtAddress, useEventListener, useContractReader } from "../../hooks";
 import Account from "../Account";
 import DisplayVariable from "./DisplayVariable";
+import BigNumber from "bignumber.js";
+
 import FunctionForm from "./FunctionForm";
 import { Address } from "../index";
 // import { getHashValue} from "../../zkFiles/hash";
@@ -443,8 +445,8 @@ export default function Contract({
                 return (
                   <List.Item key={item.blockNumber + "_" + item.sender + "_" + item.purpose}>
                     <Address value={item[0]} ensProvider={mainnetProvider} fontSize={16} /> =>
-                     
-                    {JSON.parse(item[5])}
+                    {item[5][1]._hex }
+                      {console.log("items:",item[5][1]._hex)}
                   </List.Item>
                 );
               }}
