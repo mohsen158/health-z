@@ -87,10 +87,11 @@ export default function Hints({
               renderItem={item => (
                 <List.Item key={item.id}>
                   <Card hoverable  style={{ width: '100%' }}>
-                  <Paragraph ellipsis={{ rows: 1, expandable: true, symbol: 'more' }}>
-                     {item["creator"]}
+                  <Paragraph  >
+                      
                 
-                    <Meta title= {item["id"]} description="www.instagram.com" />
+                    <Meta title="id" description={item["id"]} />
+                    <Meta title="creator" description={item["creator"]} />
 
                     </Paragraph>
                     <Meta title= {item["infoHash"][0]._hex} description="www.instagram.com" />
@@ -156,7 +157,7 @@ export default function Hints({
                     <Meta title= "seller" description= {item["seller"]} />
                     <Meta title= "buyer" description= {item["buyer"]} />
                     <Meta title= "price" description= {item["price"]._hex} />
-                    <Meta title= "sellerConfirmation" description= {item["sellerConfirmation"]} />
+                    <Meta title= "sellerConfirmation" description= {item["sellerConfirmation"]? "True":"False"} />
                   </Card>
                 </List.Item>
               )}
