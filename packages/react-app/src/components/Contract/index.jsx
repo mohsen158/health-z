@@ -534,9 +534,8 @@ export default function Contract({
                   return (
                     <List.Item key={item.blockNumber + "_" + item.sender + "_" + item.purpose}>
                       <Address value={item[0]} ensProvider={mainnetProvider} fontSize={16} /> =>
-                      {item[5][1]._hex}
-                      {console.log("items:", item[5][1]._hex)}
-                    </List.Item>
+                      {item[1]}
+                     </List.Item>
                   );
                 }}
               />

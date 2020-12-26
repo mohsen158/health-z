@@ -110,7 +110,7 @@ function App(props) {
               }}
               to="/"
             >
-              YourContract
+              Contract
             </Link>
           </Menu.Item>
           <Menu.Item key="/hints">
@@ -120,10 +120,10 @@ function App(props) {
               }}
               to="/hints"
             >
-              Hints
+              Data view
             </Link>
           </Menu.Item>
-          <Menu.Item key="/exampleui">
+          {/* <Menu.Item key="/exampleui">
             <Link
               onClick={() => {
                 setRoute("/exampleui");
@@ -142,7 +142,7 @@ function App(props) {
             >
               Subgraph
             </Link>
-          </Menu.Item>
+          </Menu.Item> */}
         </Menu>
 
         <Switch>
