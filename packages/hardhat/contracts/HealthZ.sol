@@ -49,7 +49,7 @@ contract HealthZ is zkVerifier {
     }
 
     // Events
-
+event messageEvent(address sender, string msg);
     event SetPurpose(address sender, string purpose);
     event newInfoAddedEvent(
         address sender,
@@ -149,7 +149,8 @@ contract HealthZ is zkVerifier {
          i.infoHash=hash;
        i.infoHash[8]=1;
         infosId.push(infoId);
-        emit newInfoAddedEvent(msg.sender,"new Info added",i.creator,infoId,detail, i.infoHash);
+        // emit newInfoAddedEvent(msg.sender,"new Info added",i.creator,infoId,detail, i.infoHash);
+       emit messageEvent (msg.sender,"New info added ");
         infoSize=infoSize+1;
         return infoId;
     }
@@ -175,10 +176,12 @@ contract HealthZ is zkVerifier {
         i.price = price;
         i.infoId = infoId;
         i.deposit = deposit;
-        i.endTime = endTime * 1 days;
+        i.endTime = now +endTime * 1 days;
 
         itemsId.push(itemId);
         itemSize= itemSize+1;
+               emit messageEvent (msg.sender,"New item added ");
+
         return itemId;
     }
 
@@ -190,6 +193,8 @@ contract HealthZ is zkVerifier {
             " Value is not equal with deposit"
         );
         items[itemId].buyerDeposit = msg.value;
+               emit messageEvent (msg.sender,"Buyer deposited");
+
     }
 
     function sellerDeposit(bytes16 itemId) public payable {
@@ -200,6 +205,8 @@ contract HealthZ is zkVerifier {
             " Value is not equal with deposit"
         );
         items[itemId].sellerDeposit = msg.value;
+               emit messageEvent (msg.sender,"Seller deposited ");
+
     }
 
     function sellerConfirmation(bytes16 itemId) public {
@@ -214,6 +221,8 @@ contract HealthZ is zkVerifier {
             " Value is not equal with deposit"
         );
         items[itemId].sellerConfirmation = true;
+                       emit messageEvent (msg.sender,"Seller confirmation ");
+
     }
 
     function buyerConfirmation(
@@ -237,18 +246,22 @@ contract HealthZ is zkVerifier {
         // ZK Snark Verification is here
         
         require(verifyTx(a, b, c, infos[ items[itemId].infoId].infoHash));
-        items[itemId].sellerConfirmation = true;
+        items[itemId].buyerConfirmation = true;
+        emit messageEvent (msg.sender,"Buyer confirmation ");
         return true;
+
     }
 
     function donePhase(bytes16 itemId) public {
-        require(items[itemId].endTime < now);
+        // require(items[itemId].endTime < now);
         if (
             items[itemId].sellerConfirmation && items[itemId].buyerConfirmation
         ) {
             items[itemId].buyer.transfer(items[itemId].deposit);
             items[itemId].seller.transfer(items[itemId].deposit);
         }
+                       emit messageEvent (msg.sender,"Done phases");
+
     }
 
     // *** Utility Functions ***

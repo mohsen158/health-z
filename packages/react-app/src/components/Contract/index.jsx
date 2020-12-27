@@ -66,6 +66,7 @@ export default function Contract({
   //📟 Listen for broadcast events
   const setPurposeEvents = useEventListener(readContracts, "HealthZ", "SetPurpose", provider, 1);
   const newInfoAddedEvent = useEventListener(readContracts, "HealthZ", "newInfoAddedEvent", provider, 1);
+  const messageEvent = useEventListener(readContracts, "HealthZ", "messageEvent", provider, 1);
   console.log("📟 SetPurpose events:", setPurposeEvents);
   const displayedContractFunctions = useMemo(
     () =>
@@ -202,21 +203,19 @@ export default function Contract({
                           if (error.response) {
                             // The request was made and the server responded with a status code
                             // that falls out of the range of 2xx
-                            console.log("err1", error.response.data);
-                            console.log("err2", error.response.status);
-                            console.log("err3", error.response.headers);
+                             
                             message.error("Type is not correct");
                           } else if (error.request) {
                             // The request was made but no response was received
                             // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
                             // http.ClientRequest in node.js
-                            console.log("err4", error.request);
+                            
                             message.error("Hash server not connected");
                           } else {
                             // Something happened in setting up the request that triggered an Error
                             console.log("Error", error.message);
                           }
-                          console.log("err5", error.config);
+                          
                         });
                     }}
                     type="primary"
@@ -526,10 +525,10 @@ export default function Contract({
         <Col span={6} style={{ marginTop: 25, padding: "0 24px" }}>
           <Card title="Events">
             {" "}
-            {setPurposeEvents || newInfoAddedEvent ? (
+            {messageEvent? (
               <List
                 bordered
-                dataSource={[...setPurposeEvents, ...newInfoAddedEvent]}
+                dataSource={[...messageEvent]}
                 renderItem={item => {
                   return (
                     <List.Item key={item.blockNumber + "_" + item.sender + "_" + item.purpose}>

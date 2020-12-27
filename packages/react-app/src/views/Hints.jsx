@@ -94,8 +94,7 @@ export default function Hints({
                     <Meta title="creator" description={item["creator"]} />
 
                     </Paragraph>
-                    <Meta title= {item["infoHash"][0]._hex} description="www.instagram.com" />
-                  </Card>
+                   </Card>
                 </List.Item>
               )}
             />
@@ -149,15 +148,18 @@ export default function Hints({
                   <Card hoverable  style={{ width: '100%' }}>
                   <Paragraph ellipsis={{ rows: 1, expandable: true, symbol: 'more' }}>
                     {/* <Typography.Text mark>[ITEM]</Typography.Text> {item} */}
-                    
-                  console.log(item)
-
+                    {console.log(item)}
+                    endTime
                     </Paragraph>
                     <Meta title= "id" description= {item["id"]} />
                     <Meta title= "seller" description= {item["seller"]} />
                     <Meta title= "buyer" description= {item["buyer"]} />
                     <Meta title= "price" description= {item["price"]._hex} />
-                    <Meta title= "sellerConfirmation" description= {item["sellerConfirmation"]? "True":"False"} />
+                    <Meta title= "end time" description= { Date(parseInt(item["endTime"]._hex,16))} />
+                    <Meta title= "seller Deposit value" description= {item["sellerDeposit"]._hex } />
+                    <Meta title= "Buyer Deposit value" description= {item["buyerDeposit"]._hex } />
+                    <Meta title= "seller Confirmation" description= {item["sellerConfirmation"]? "True":"False"} />
+                    <Meta title= "Buyer Confirmation" description= {item["buyerConfirmation"]? "True":"False"} />
                   </Card>
                 </List.Item>
               )}

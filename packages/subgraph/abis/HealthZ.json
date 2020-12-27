@@ -35,6 +35,25 @@
       {
         "indexed": false,
         "internalType": "string",
+        "name": "msg",
+        "type": "string"
+      }
+    ],
+    "name": "messageEvent",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "sender",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
         "name": "title",
         "type": "string"
       },
