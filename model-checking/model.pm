@@ -1,14 +1,14 @@
 dtmc
 
     const int price = 10;
-    const double r_b =1;
+    const double r_b ;
     const double okp_b= min(1, pow((deposit/price),r_b));
     const double kop_b=1- okp_b;
 
-    const double r_s =1;
+    const double r_s =r_b;
     const double okp_s= min(1, pow((deposit/price),r_s));
     const double kop_s=1- okp_s;
-    const int deposit= 9;    
+    const int deposit;    
   
  module Buyer
  count: [0..1000] init 0;
@@ -44,6 +44,7 @@ module Seller
     deposit_s: [0..10] init 0;
     value_s: [0..1000] init 100;
     money_s:[0..1000] init 50;
+    value_loss:[0..1000] init 0;
     sent:bool init false;
     deny_s : bool init false;
     [deposit] s=0 & money_s-deposit>0  & count+1<1001 -> 1:(s'=1)& (money_s'=money_s-deposit)&(sent'=false)& (deny_s'=false);
@@ -52,7 +53,7 @@ module Seller
     [] s=1  & value_s - price>0-> kop_s:(s'=4)&(deny_s'=true) + okp_s: (s'=2) &(value_s'=value_s - price)&(sent'=true);
      
    // [pay] b=1 & money_s+price<1000  -> (money_s'=money_s+price);
-    [] s=2 & b!=1& pay=false -> 1: (s'=4) &(deny_s'=true);
+    [] s=2 & b!=1& pay=false  & (value_loss+price)<1000 -> 1: (s'=4) &(deny_s'=true) & (value_loss'=value_loss+price);
     [] s=2 & b!=1 & pay=true-> 1: (s'=5);
     
 //[] s=5 -> (deny_s'=false);
