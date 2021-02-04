@@ -1,13 +1,13 @@
 dtmc
 
     const int price = 10;
-    const double r_b ;
-    const double okp_b= min(1, pow((deposit/price),r_b));
-    const double kop_b=1- okp_b;
+    const double a_b ;
+    const double pTrust_b= min(1, pow((deposit/price),a_b));
+    //const double kop_b=1- okp_b;
 
-    const double r_s =r_b;
-    const double okp_s= min(1, pow((deposit/price),r_s));
-    const double kop_s=1- okp_s;
+    const double a_s =a_b;
+    const double pTrust_s= min(1, pow((deposit/price),a_s));
+    //const double kop_s=1- okp_s;
     const int deposit;    
   
  module Buyer
@@ -22,7 +22,7 @@ dtmc
     [deposit] b=0 & money_b-deposit>0 & count+1<1001 -> 1 : (b'=1)& (money_b'=money_b -deposit) & (pay'=false)& (deny_b'=false) & (count'=count+1);
     //[ship] b=1 & sent=false  ->(value_b'=value_b+price);
     //[pay] b=1 & pay =false -> okp_b:(b'=2) & (pay'=true) & (money_b'=money_b-price); 
-    [] b=1 & money_b-deposit- price>0  -> kop_b:(b'=4)&(deny_b'=true) + okp_b:(b'=2) & (pay'=true) & (money_b'=money_b-price);
+    [] b=1 & money_b-deposit- price>0  -> (1-pTrust_b):(b'=4)&(deny_b'=true) + pTrust_b:(b'=2) & (pay'=true) & (money_b'=money_b-price);
      
     //[sent] s=1  & value_b +price <1000-> (value_b'=value_b+price);
     [] b=2 &s!=1 & sent=false -> 1: (b'=4)&(deny_b'=true);
@@ -50,7 +50,7 @@ module Seller
     [deposit] s=0 & money_s-deposit>0  & count+1<1001 -> 1:(s'=1)& (money_s'=money_s-deposit)&(sent'=false)& (deny_s'=false);
     //[ship] s=1 & sent=false -> okp_s: (s'=2) &(value_s'=value_s - price);
     //[pay] s=2 & pay=false -> (s'=2) &(money_s'=money_s+price);
-    [] s=1  & value_s - price>0-> kop_s:(s'=4)&(deny_s'=true) + okp_s: (s'=2) &(value_s'=value_s - price)&(sent'=true);
+    [] s=1  & value_s - price>0-> (1-pTrust_s):(s'=4)&(deny_s'=true) + pTrust_s: (s'=2) &(value_s'=value_s - price)&(sent'=true);
      
    // [pay] b=1 & money_s+price<1000  -> (money_s'=money_s+price);
     [] s=2 & b!=1& pay=false  & (value_loss+price)<1000 -> 1: (s'=4) &(deny_s'=true) & (value_loss'=value_loss+price);
