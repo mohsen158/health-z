@@ -53,5 +53,8 @@
       "**/@graphprotocol/graph-ts",
       "**/@graphprotocol/graph-ts/**"
     ]
+  },
+  "dependencies": {
+    "hardhat-gas-reporter": "^1.0.4"
   }
 }

@@ -2,7 +2,7 @@ const { utils } = require("ethers");
 const fs = require("fs");
 
 require("@nomiclabs/hardhat-waffle");
-
+require("hardhat-gas-reporter");
 const { isAddress, getAddress, formatUnits, parseUnits } = utils;
 
 /*
@@ -88,6 +88,13 @@ module.exports = {
         runs: 200,
       },
     },
+  },
+  gasReporter: {
+    enabled: true,
+    currency: "USD",
+    showTimeSpent: true,
+    coinmarketcap: "a0b50ce5-2a3d-46e2-a61c-3ce50f05be78",
+    // outputFile:"./test/gasReport.txt"
   },
   paths: {
     sources: "./contracts",

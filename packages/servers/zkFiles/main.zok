@@ -7,10 +7,17 @@ import "utils/casts/u32_to_bits" as u32_to_bits
 // WARNING, once enough bits have been revealed it is possible to brute force
 // the remaining preimage bits.
 
+
+//executing this function to generate the proof
 def main(private u32[16] preimage, u32[8] hash) ->bool:
                                                                                                                        
-  // Convert the preimage to bits
+  // generate the hash of preimage 
     u32[8] h = sha256(preimage[0..8], preimage[8..16])
-    // ** can add another public value inorder to create hash exactly unique 
+    // generated hash must be equal with "hash" 
     assert(h==hash)
   return true
+
+
+
+
+  

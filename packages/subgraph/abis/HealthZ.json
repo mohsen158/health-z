@@ -65,9 +65,9 @@
       },
       {
         "indexed": false,
-        "internalType": "bytes16",
+        "internalType": "uint16",
         "name": "id",
-        "type": "bytes16"
+        "type": "uint16"
       },
       {
         "indexed": false,
@@ -94,9 +94,9 @@
   {
     "inputs": [
       {
-        "internalType": "bytes16",
+        "internalType": "uint16",
         "name": "itemId",
-        "type": "bytes16"
+        "type": "uint16"
       },
       {
         "internalType": "uint256[2]",
@@ -128,9 +128,9 @@
   {
     "inputs": [
       {
-        "internalType": "bytes16",
+        "internalType": "uint16",
         "name": "itemId",
-        "type": "bytes16"
+        "type": "uint16"
       }
     ],
     "name": "buyerDeposit",
@@ -141,9 +141,9 @@
   {
     "inputs": [
       {
-        "internalType": "bytes16",
+        "internalType": "uint16",
         "name": "itemId",
-        "type": "bytes16"
+        "type": "uint16"
       }
     ],
     "name": "donePhase",
@@ -167,9 +167,9 @@
         "type": "address"
       },
       {
-        "internalType": "bytes16",
+        "internalType": "uint16",
         "name": "id",
-        "type": "bytes16"
+        "type": "uint16"
       },
       {
         "internalType": "string",
@@ -211,14 +211,14 @@
         "type": "uint256"
       },
       {
-        "internalType": "bytes16",
+        "internalType": "uint16",
         "name": "infoId",
-        "type": "bytes16"
+        "type": "uint16"
       },
       {
-        "internalType": "bytes16",
+        "internalType": "uint16",
         "name": "id",
-        "type": "bytes16"
+        "type": "uint16"
       },
       {
         "internalType": "uint256",
@@ -270,9 +270,9 @@
   {
     "inputs": [
       {
-        "internalType": "bytes16",
+        "internalType": "uint16",
         "name": "",
-        "type": "bytes16"
+        "type": "uint16"
       }
     ],
     "name": "infos",
@@ -283,9 +283,9 @@
         "type": "address"
       },
       {
-        "internalType": "bytes16",
+        "internalType": "uint16",
         "name": "id",
-        "type": "bytes16"
+        "type": "uint16"
       },
       {
         "internalType": "string",
@@ -307,9 +307,9 @@
     "name": "infosId",
     "outputs": [
       {
-        "internalType": "bytes16",
+        "internalType": "uint16",
         "name": "",
-        "type": "bytes16"
+        "type": "uint16"
       }
     ],
     "stateMutability": "view",
@@ -331,9 +331,9 @@
   {
     "inputs": [
       {
-        "internalType": "bytes16",
+        "internalType": "uint16",
         "name": "",
-        "type": "bytes16"
+        "type": "uint16"
       }
     ],
     "name": "items",
@@ -354,14 +354,14 @@
         "type": "uint256"
       },
       {
-        "internalType": "bytes16",
+        "internalType": "uint16",
         "name": "infoId",
-        "type": "bytes16"
+        "type": "uint16"
       },
       {
-        "internalType": "bytes16",
+        "internalType": "uint16",
         "name": "id",
-        "type": "bytes16"
+        "type": "uint16"
       },
       {
         "internalType": "uint256",
@@ -408,9 +408,9 @@
     "name": "itemsId",
     "outputs": [
       {
-        "internalType": "bytes16",
+        "internalType": "uint16",
         "name": "",
-        "type": "bytes16"
+        "type": "uint16"
       }
     ],
     "stateMutability": "view",
@@ -432,9 +432,9 @@
     "name": "newInfo",
     "outputs": [
       {
-        "internalType": "bytes16",
+        "internalType": "uint16",
         "name": "",
-        "type": "bytes16"
+        "type": "uint16"
       }
     ],
     "stateMutability": "nonpayable",
@@ -448,9 +448,9 @@
         "type": "uint256"
       },
       {
-        "internalType": "bytes16",
+        "internalType": "uint16",
         "name": "infoId",
-        "type": "bytes16"
+        "type": "uint16"
       },
       {
         "internalType": "uint256",
@@ -466,9 +466,9 @@
     "name": "newItem",
     "outputs": [
       {
-        "internalType": "bytes16",
+        "internalType": "uint16",
         "name": "",
-        "type": "bytes16"
+        "type": "uint16"
       }
     ],
     "stateMutability": "nonpayable",
@@ -492,9 +492,9 @@
     "name": "randomId",
     "outputs": [
       {
-        "internalType": "bytes16",
+        "internalType": "uint16",
         "name": "",
-        "type": "bytes16"
+        "type": "uint16"
       }
     ],
     "stateMutability": "nonpayable",
@@ -503,9 +503,9 @@
   {
     "inputs": [
       {
-        "internalType": "bytes16",
+        "internalType": "uint16",
         "name": "itemId",
-        "type": "bytes16"
+        "type": "uint16"
       }
     ],
     "name": "sellerConfirmation",
@@ -516,9 +516,9 @@
   {
     "inputs": [
       {
-        "internalType": "bytes16",
+        "internalType": "uint16",
         "name": "itemId",
-        "type": "bytes16"
+        "type": "uint16"
       }
     ],
     "name": "sellerDeposit",
