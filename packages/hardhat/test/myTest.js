@@ -23,14 +23,14 @@ describe("My Dapp", function () {
       // console.log(ownerBalance)
     });
 
-    describe("setPurpose()", function () {
-      it("Should be able to set a new purpose", async function () {
-        const newPurpose = "Test Purpose";
+    // describe("setPurpose()", function () {
+    //   it("Should be able to set a new purpose", async function () {
+    //     const newPurpose = "Test Purpose";
 
-        await myContract.setPurpose(newPurpose);
-        expect(await myContract.purpose()).to.equal(newPurpose);
-      });
-    });
+    //     await myContract.setPurpose(newPurpose);
+    //     expect(await myContract.purpose()).to.equal(newPurpose);
+    //   });
+    // });
     describe("randomId()", function () {
       it("Should be able to set a new Info", async function () {
         await myContract.randomId();
@@ -115,11 +115,12 @@ describe("My Dapp", function () {
       describe("sellerDeposit()", function () {
         it("Should be able  deposit in one item which has not before  for seller", async function () {
           const accounts = await ethers.getSigners();
-        
-        let acc2 = accounts[2];
+
+          let acc2 = accounts[2];
           await myContract.getItemByIndex(0).then(async (res) => {
             //is day
-            await myContract.connect(acc2)
+            await myContract
+              .connect(acc2)
               .sellerDeposit(res.id, { value: 10 })
               .then(async (res) => {
                 // console.log(res);
@@ -245,3 +246,27 @@ describe("My Dapp", function () {
     });
   });
 });
+[
+  [
+    "0x2c4f5ac94ca04e12fe355a87c5b79b46637521086c34e5dbbfaa7f847a1b2c6a",
+    "0x152ea25ace2c8041720b8fb20dbc4559f1e51a7f0aefcb3f557fca1d4c61bb0f",
+  ],
+  [
+    [
+      "0x2ee5eddce12cd9681e12921636b1115bdd5ac465bbc4cf2711e49fddcba8cf37",
+      "0x054766038f7ed3decc39387618bf19a7b952fe97b3f03a3772cfad9f6be1a55b",
+    ],
+    [
+      "0x22201a33c797207a8055edd206d725c3b5834c4bae27c4a448a6885704ac8d3a",
+      "0x2e63c0e32d96ca36f6f47d688a0877cc31e59e1112da801fbc0cbc519bda1da8",
+    ],
+  ],
+  [
+    "0x106d827a6ae907d42f190ba5db13533ae5347b3d06d61af4131eba8343315f4b",
+    "0x0f8d0637950775cc98cf3db8a2d9be13e4106b0dc9d2ac36dcbf37d1ac9296e3",
+  ],
+],
+  [
+    "0x0000000000000000000000000000000000000000000000000000000000000005",
+    "0x0000000000000000000000000000000000000000000000000000000000000001",
+  ];
