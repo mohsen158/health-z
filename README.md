@@ -1,7 +1,8 @@
 #  :hospital:  health-z
 Health decentralized marketplace which leverages ZKSNARK with evaluation by Prism tool (Model checker)
 
-<iframe width="725" height="409" src="https://www.youtube.com/embed/C5dzrJaPglc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/C5dzrJaPglc/0.jpg)](https://www.youtube.com/watch?v=C5dzrJaPglc)
+
 
 > is everything you need to get started building decentralized applications powered by smart contracts
 
