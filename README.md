@@ -14,9 +14,9 @@ Health decentralized marketplace which leverages ZKSNARK with evaluation by Pris
 ## quickstart
 
 ```bash
-git clone https://github.com/austintgriffith/scaffold-eth.git your-next-dapp
+git clone https://github.com/mohsen158/health-z healthZ
 
-cd your-next-dapp
+cd healthZ
 ```
 
 ```bash
