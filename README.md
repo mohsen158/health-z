@@ -46,4 +46,4 @@ yarn chain
 yarn deploy
 
 ```
-![UML Diagram](packages\hardhat\UML.png)
+![UML Diagram](https://github.com/mohsen158/health-z/blob/main/packages/hardhat/UML.png?raw=true)
