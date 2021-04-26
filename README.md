@@ -46,4 +46,4 @@ yarn chain
 yarn deploy
 
 ```
-![UML Diagram](packages\hardhat\UML.svg)
+![UML Diagram](packages\hardhat\UML.png)
